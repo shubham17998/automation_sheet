@@ -26,9 +26,6 @@ jobs:
           MINIO_1_URL: ${{ secrets.MINIO_1_URL }}
           MINIO_1_ACCESS_KEY: ${{ secrets.MINIO_1_ACCESS_KEY }}
           MINIO_1_SECRET_KEY: ${{ secrets.MINIO_1_SECRET_KEY }}
-          MINIO_2_URL: ${{ secrets.MINIO_2_URL }}
-          MINIO_2_ACCESS_KEY: ${{ secrets.MINIO_2_ACCESS_KEY }}
-          MINIO_2_SECRET_KEY: ${{ secrets.MINIO_2_SECRET_KEY }}
           GOOGLE_SHEET_ID: ${{ secrets.GOOGLE_SHEET_ID }}
           GOOGLE_SHEET_TOKEN: ${{ secrets.GOOGLE_SHEET_TOKEN }}
         run: ./update_reports.sh
