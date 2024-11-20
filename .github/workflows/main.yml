@@ -10,18 +10,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout code
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      # Step 2: Install MinIO CLI
       - name: Install MinIO CLI
         run: |
           curl https://dl.min.io/client/mc/release/linux-amd64/mc -o /usr/local/bin/mc
           chmod +x /usr/local/bin/mc
 
-      # Step 3: Run the update script
-      - name: Update Reports
+      - name: Make Script Executable
+        run: chmod +x ./update_reports.sh
+
+      - name: Run Update Reports Script
         env:
           MINIO_1_URL: ${{ secrets.MINIO_1_URL }}
           MINIO_1_ACCESS_KEY: ${{ secrets.MINIO_1_ACCESS_KEY }}
