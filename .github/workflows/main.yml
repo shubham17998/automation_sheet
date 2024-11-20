@@ -1,0 +1,34 @@
+name: Automate MinIO Reports to Google Sheets
+
+on:
+  schedule:
+    - cron: '0 8 * * *' # Run daily at 8 AM
+  workflow_dispatch: # Allow manual triggering
+
+jobs:
+  update-reports:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout code
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      # Step 2: Install MinIO CLI
+      - name: Install MinIO CLI
+        run: |
+          curl https://dl.min.io/client/mc/release/linux-amd64/mc -o /usr/local/bin/mc
+          chmod +x /usr/local/bin/mc
+
+      # Step 3: Run the update script
+      - name: Update Reports
+        env:
+          MINIO_1_URL: ${{ secrets.MINIO_1_URL }}
+          MINIO_1_ACCESS_KEY: ${{ secrets.MINIO_1_ACCESS_KEY }}
+          MINIO_1_SECRET_KEY: ${{ secrets.MINIO_1_SECRET_KEY }}
+          MINIO_2_URL: ${{ secrets.MINIO_2_URL }}
+          MINIO_2_ACCESS_KEY: ${{ secrets.MINIO_2_ACCESS_KEY }}
+          MINIO_2_SECRET_KEY: ${{ secrets.MINIO_2_SECRET_KEY }}
+          GOOGLE_SHEET_ID: ${{ secrets.GOOGLE_SHEET_ID }}
+          GOOGLE_SHEET_TOKEN: ${{ secrets.GOOGLE_SHEET_TOKEN }}
+        run: ./update_reports.sh
